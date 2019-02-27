@@ -1,0 +1,88 @@
+<h2 id="title-Постоянные-ссылки"><a href="#title-Постоянные-ссылки" class="headerlink" title="title: Постоянные ссылки"></a>title: Постоянные ссылки</h2><p>Вы можете указать формат постоянных ссылок на вашем сайте в файле <code>_config.yml</code>. Или в шапке каждого поста.</p>
+<h3 id="Переменные"><a href="#Переменные" class="headerlink" title="Переменные"></a>Переменные</h3><p>Помимо переменных, можно использовать любые атрибуты постоянной ссылки.</p>
+<table>
+<thead>
+<tr>
+<th>Переменная</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:year</code></td>
+<td>Год публикации поста (4-х значный)</td>
+</tr>
+<tr>
+<td><code>:month</code></td>
+<td>Месяц публикации поста (2-х значный)</td>
+</tr>
+<tr>
+<td><code>:i_month</code></td>
+<td>Месяц публикации поста (Без ведущего нуля)</td>
+</tr>
+<tr>
+<td><code>:day</code></td>
+<td>День публикации поста (2-х значный)</td>
+</tr>
+<tr>
+<td><code>:i_day</code></td>
+<td>День публикации поста (Без ведущего нуля)</td>
+</tr>
+<tr>
+<td><code>:title</code></td>
+<td>Имя файла</td>
+</tr>
+<tr>
+<td><code>:id</code></td>
+<td>ID поста</td>
+</tr>
+<tr>
+<td><code>:category</code></td>
+<td>Категории. Если категория поста не указана, возьмётся значение по умолчанию из <code>default_category</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Можно определить значение по умолчанию для переменной постоянной ссылки, задав значение <code>permalink_defaults</code> в конфигурации:</p>
+<pre><code class="yaml"><span class="attr">permalink_defaults:</span>
+<span class="attr">  lang:</span> <span class="string">en</span>
+</code></pre>
+<h3 id="Примеры"><a href="#Примеры" class="headerlink" title="Примеры"></a>Примеры</h3><p>Пост под названием <code>hello-world.md</code> в <code>source/_posts</code> следующего содержания:</p>
+<pre><code class="yaml"><span class="attr">title:</span> <span class="string">Hello</span> <span class="string">World</span>
+<span class="attr">date:</span> <span class="number">2013</span><span class="bullet">-07</span><span class="bullet">-14</span> <span class="number">17</span><span class="string">:01:34</span>
+<span class="attr">categories:</span>
+<span class="bullet">-</span> <span class="string">foo</span>
+<span class="bullet">-</span> <span class="string">bar</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Настройка</th>
+<th>Результат</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:year/:month/:day/:title/</code></td>
+<td>2013/07/14/hello-world</td>
+</tr>
+<tr>
+<td><code>:year-:month-:day-:title.html</code></td>
+<td>2013-07-14-hello-world.html</td>
+</tr>
+<tr>
+<td><code>:category/:title</code></td>
+<td>foo/bar/hello-world</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Многоязычность"><a href="#Многоязычность" class="headerlink" title="Многоязычность"></a>Многоязычность</h3><p>Для создания многоязыкового сайта можно изменить <code>new_post_name</code> и <code>permalink</code>. Например:</p>
+<pre><code class="yaml"><span class="attr">new_post_name:</span> <span class="string">:lang/:title.md</span>
+<span class="attr">permalink:</span> <span class="string">:lang/:title/</span>
+</code></pre>
+<p>При создании нового поста, он будет сохранен в папке указанного языка:</p>
+<pre><code class="bash">$ hexo new <span class="string">"Hello World"</span> --lang tw
+<span class="comment"># =&gt; source/_posts/tw/Hello-World.md</span>
+</code></pre>
+<p>ссылка на пост будет:</p>
+<pre><code class="plain">http://localhost:4000/tw/hello-world/
+</code></pre>

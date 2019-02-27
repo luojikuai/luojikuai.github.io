@@ -1,0 +1,32 @@
+<h2 id="title-Renderizacao"><a href="#title-Renderizacao" class="headerlink" title="title: Renderização"></a>title: Renderização</h2><p>Existem dois métodos para renderizar arquivos ou strings no Hexo: o método assíncrono <code>hexo.render.render</code> e o método síncrono <code>hexo.render.renderSync</code>. Os dois métodos são bastante semelhantes, desta forma, apenas o método <code>hexo.render.render</code> assíncrono será um pouco mais discutido nos parágrafos abaixo.</p>
+<h2 id="Renderizar-uma-String"><a href="#Renderizar-uma-String" class="headerlink" title="Renderizar uma String"></a>Renderizar uma String</h2><p>Ao renderizar uma string, você deve especificar uma <code>engine</code> para permitir que o Hexo conheça o mecanismo de renderização que deverá ser  usado.</p>
+<pre><code class="js">hexo.render.render({<span class="attr">text</span>: <span class="string">'example'</span>, <span class="attr">engine</span>: <span class="string">'swig'</span>}).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>{
+  <span class="comment">// ...</span>
+});
+</code></pre>
+<h2 id="Renderizar-um-Arquivo"><a href="#Renderizar-um-Arquivo" class="headerlink" title="Renderizar um Arquivo"></a>Renderizar um Arquivo</h2><p>Ao renderizar um arquivo, não é necessário especificar uma <code>engine</code> porque o Hexo detectará automaticamente o mecanismo de renderização mais apropriado com base na extensão do arquivo. Mas se for a caso, você também pode definir explicitamente a <code>engine</code>.</p>
+<pre><code class="js">hexo.render.render({<span class="attr">path</span>: <span class="string">'path/to/file.swig'</span>}).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>{
+  <span class="comment">// ...</span>
+});
+</code></pre>
+<h2 id="Opcoes-de-Renderizacao"><a href="#Opcoes-de-Renderizacao" class="headerlink" title="Opções de Renderização"></a>Opções de Renderização</h2><p>Você pode passar um conjunto de opções em formato de objeto no segundo argumento.</p>
+<pre><code class="js">hexo.render.render({<span class="attr">text</span>: <span class="string">''</span>}, {<span class="attr">foo</span>: <span class="string">'foo'</span>}).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>{
+  <span class="comment">// ...</span>
+});
+</code></pre>
+<h2 id="Filtros-after-render"><a href="#Filtros-after-render" class="headerlink" title="Filtros after_render"></a>Filtros after_render</h2><p>Quando a renderização estiver completa, o Hexo executará os filtros <code>after_render</code> correspondentes. Por exemplo, podemos usar este recurso para implementar um minificador para arquivos JavaScript.</p>
+<pre><code class="js"><span class="keyword">var</span> UglifyJS = <span class="built_in">require</span>(<span class="string">'uglify-js'</span>);
+
+hexo.extend.filter.register(<span class="string">'after_render:js'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">str, data</span>)</span>{
+  <span class="keyword">var</span> result = UglifyJS.minify(str);
+  <span class="keyword">return</span> result.code;
+});
+</code></pre>
+<h2 id="Verificar-se-um-Arquivo-e-Renderizavel"><a href="#Verificar-se-um-Arquivo-e-Renderizavel" class="headerlink" title="Verificar se um Arquivo é Renderizável"></a>Verificar se um Arquivo é Renderizável</h2><p>Você pode usar o método <code>isRenderable</code> ou <code>isRenderableSync</code> para verificar se um caminho de arquivo é renderizável. O retorno do método será <code>true</code> apenas se um renderizador correspondente for registrado.</p>
+<pre><code class="js">hexo.render.isRenderable(<span class="string">'layout.swig'</span>) <span class="comment">// true</span>
+hexo.render.isRenderable(<span class="string">'image.png'</span>) <span class="comment">// false</span>
+</code></pre>
+<h2 id="Obter-a-Extensao-de-Saida"><a href="#Obter-a-Extensao-de-Saida" class="headerlink" title="Obter a Extensão de Saída"></a>Obter a Extensão de Saída</h2><p>Use o método <code>getOutput</code> para obter a extensão da saída renderizada. Se um arquivo não foi renderizado, o método retornará uma string vazia.</p>
+<pre><code class="js">hexo.render.getOutput(<span class="string">'layout.swig'</span>) <span class="comment">// html</span>
+hexo.render.getOutput(<span class="string">'image.png'</span>) <span class="comment">// '''</span>
+</code></pre>

@@ -1,0 +1,54 @@
+<h2 id="title-Contributing"><a href="#title-Contributing" class="headerlink" title="title: Contributing"></a>title: Contributing</h2><h2 id="Development"><a href="#Development" class="headerlink" title="Development"></a>Development</h2><p>We welcome you to join the development of Hexo. This document will help you through the process.<br>การเข้าร่วมในกานพัฒนาของ hexo นั้นเป็นเรี่องท่ีพวกเรายินดีต้อนรับ<br>บทความนี้จะเป็นการแนะนำกระบวนการเข้่าร่วมเรื่องนี้</p>
+<h3 id="Before-You-Start"><a href="#Before-You-Start" class="headerlink" title="Before You Start"></a>Before You Start</h3><p>กรุณาทำตามขั้นตอนต่อไป:</p>
+<ul>
+<li>Follow <a href="https://google.github.io/styleguide/jsguide.html">Google JavaScript Style Guide</a>.</li>
+<li>Use soft-tabs with a two space indent.</li>
+<li>Don’t put commas first.</li>
+</ul>
+<h3 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h3><ol>
+<li>Fork <a href="https://github.com/hexojs/hexo">hexojs/hexo</a>.</li>
+<li><p>Clone the repository to your computer and install dependencies.</p>
+<p> {% code %}<br> $ git clone <a href="https://github.com/">https://github.com/</a><username>/hexo.git<br> $ cd hexo<br> $ npm install<br> $ git submodule update –init<br> {% endcode %}</username></p>
+</li>
+<li><p>Create a feature branch.</p>
+<p> {% code %}<br> $ git checkout -b new_feature<br> {% endcode %}</p>
+</li>
+<li><p>Start hacking.</p>
+</li>
+<li><p>Push the branch:</p>
+<p> {% code %}<br> $ git push origin new_feature<br> {% endcode %}</p>
+</li>
+<li><p>Create a pull request and describe the change.</p>
+</li>
+</ol>
+<h3 id="Notice"><a href="#Notice" class="headerlink" title="Notice"></a>Notice</h3><ul>
+<li>Don’t modify version number in <code>package.json</code>.</li>
+<li><p>Your pull request will only get merged when tests passed. Don’t forget to run tests before submission.</p>
+<p>  {% code %}<br>  $ npm test<br>  {% endcode %}</p>
+</li>
+</ul>
+<h2 id="Updating-Documentation"><a href="#Updating-Documentation" class="headerlink" title="Updating Documentation"></a>Updating Documentation</h2><p>documentation ของ hexo เป็น open source และคุณสามารถอ่าน source code ได้ท่ี <a href="https://github.com/hexojs/site">hexojs/site</a></p>
+<h3 id="Workflow-1"><a href="#Workflow-1" class="headerlink" title="Workflow"></a>Workflow</h3><ol>
+<li>Fork <a href="https://github.com/hexojs/site">hexojs/site</a></li>
+<li><p>Clone the repository to your computer and install dependencies.</p>
+<p> {% code %}<br> $ git clone <a href="https://github.com/">https://github.com/</a><username>/site.git<br> $ cd site<br> $ npm install<br> {% endcode %}</username></p>
+</li>
+<li><p>Start editing the documentation. You can start the server for live previewing.</p>
+<p> {% code %}<br> $ hexo server<br> {% endcode %}</p>
+</li>
+<li><p>Push the branch.</p>
+</li>
+<li>Create a pull request and describe the change.</li>
+</ol>
+<h3 id="Translating"><a href="#Translating" class="headerlink" title="Translating"></a>Translating</h3><ol>
+<li>Add a new language folder in <code>source</code> folder. (All lower case)</li>
+<li>Copy Markdown and template files in <code>source</code> folder to the new language folder.</li>
+<li>Add the new language to <code>source/_data/language.yml</code>.</li>
+<li>Copy <code>en.yml</code> in <code>themes/navy/languages</code> and rename to the language name (all lower case).</li>
+</ol>
+<h2 id="Reporting-Issues"><a href="#Reporting-Issues" class="headerlink" title="Reporting Issues"></a>Reporting Issues</h2><p>เมื่อคุณพบเจอปัญหาการใช้ hexo คุณไปค้นหาวิธีการแก้ไขได้ท่ <a href="troubleshooting.html">Troubleshooting</a><br>หรือไปถามท่ี <a href="https://github.com/hexojs/hexo/issues">GitHub</a><br>กรือไปถามท่ี <a href="https://groups.google.com/group/hexo">Google Group</a><br>ถ้าคุณหาวิธีแก้ไขไม่ได้ กรุณาไปรายงานปัญหาท่ี Github </p>
+<ol>
+<li>Represent the problem in <a href="commands.html#Debug_mode">debug mode</a>.</li>
+<li>Run <code>hexo version</code> and check the version info.    </li>
+<li>Post both debug message and version info on GitHub.</li>
+</ol>

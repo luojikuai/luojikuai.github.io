@@ -1,0 +1,67 @@
+<h2 id="title-Рендер"><a href="#title-Рендер" class="headerlink" title="title: Рендер"></a>title: Рендер</h2><p>Рендер используется для создания содержимого.</p>
+<h2 id="Краткий-обзор"><a href="#Краткий-обзор" class="headerlink" title="Краткий обзор"></a>Краткий обзор</h2><pre><code class="js">hexo.extend.renderer.register(name, output, <span class="function"><span class="keyword">function</span>(<span class="params">data, options</span>)</span>{
+  <span class="comment">// ...</span>
+}, sync);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Аргумент</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Вводится расширение входного файла (нижний регистр, без ведущей <code>.</code>)</td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td>Выводится расширение входного файла (нижний регистр, без ведущей <code>.</code>)</td>
+</tr>
+<tr>
+<td><code>sync</code></td>
+<td>Режим синхронизации</td>
+</tr>
+</tbody>
+</table>
+<p>В функцию рендера передаются два аргумента:</p>
+<table>
+<thead>
+<tr>
+<th>Аргумент</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>Включает два атрибута: путь к файлу <code>path</code> и содержимое файла  <code>text</code>. Переменная <code>path</code> не является обязательной.</td>
+</tr>
+<tr>
+<td><code>option</code></td>
+<td>Опции</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Пример"><a href="#Пример" class="headerlink" title="Пример"></a>Пример</h2><h3 id="Асинхронный-режим"><a href="#Асинхронный-режим" class="headerlink" title="Асинхронный режим"></a>Асинхронный режим</h3><pre><code class="js"><span class="keyword">var</span> stylus = <span class="built_in">require</span>(<span class="string">'stylus'</span>);
+
+<span class="comment">// Обратный вызов</span>
+hexo.extend.renderer.register(<span class="string">'styl'</span>, <span class="string">'css'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data, options, callback</span>)</span>{
+  stylus(data.text).set(<span class="string">'filename'</span>, data.path).render(callback);
+});
+
+<span class="comment">// Запрос</span>
+hexo.extend.renderer.register(<span class="string">'styl'</span>, <span class="string">'css'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data, options</span>)</span>{
+  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>{
+    resolve(<span class="string">'test'</span>);
+  });
+});
+</code></pre>
+<h3 id="Синхронный-режим"><a href="#Синхронный-режим" class="headerlink" title="Синхронный режим"></a>Синхронный режим</h3><pre><code class="js"><span class="keyword">var</span> ejs = <span class="built_in">require</span>(<span class="string">'ejs'</span>);
+
+hexo.extend.renderer.register(<span class="string">'ejs'</span>, <span class="string">'html'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data, options</span>)</span>{
+  options.filename = data.path;
+  <span class="keyword">return</span> ejs.render(data.text, options);
+}, <span class="literal">true</span>);
+</code></pre>

@@ -1,0 +1,67 @@
+<h2 id="title-Renderer"><a href="#title-Renderer" class="headerlink" title="title: Renderer"></a>title: Renderer</h2><p>Um <code>renderer</code> é utilizado para renderizar conteúdos.</p>
+<h2 id="Resumo"><a href="#Resumo" class="headerlink" title="Resumo"></a>Resumo</h2><pre><code class="js">hexo.extend.renderer.register(name, output, <span class="function"><span class="keyword">function</span>(<span class="params">data, options</span>)</span>{
+  <span class="comment">// ...</span>
+}, sync);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Argumento</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Extensão do arquivo de entrada (caixa baixa, sem o <code>.</code> inicial)</td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td>Extensão do arquivo de saída (caixa baixa, sem o <code>.</code> inicial)</td>
+</tr>
+<tr>
+<td><code>sync</code></td>
+<td>Modo de sincronização</td>
+</tr>
+</tbody>
+</table>
+<p>Dois argumentos devem ser passados para a função renderer:</p>
+<table>
+<thead>
+<tr>
+<th>Argumento</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>Inclui dois atributos: Caminho do arquivo (<code>path</code>) e o conteúdo do arquivo (<code>text</code>). Não é necessário que <code>path</code> exista.</td>
+</tr>
+<tr>
+<td><code>option</code></td>
+<td>Opções</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Exemplo"><a href="#Exemplo" class="headerlink" title="Exemplo"></a>Exemplo</h2><h3 id="Modo-Assincrono"><a href="#Modo-Assincrono" class="headerlink" title="Modo Assíncrono"></a>Modo Assíncrono</h3><pre><code class="js"><span class="keyword">var</span> stylus = <span class="built_in">require</span>(<span class="string">'stylus'</span>);
+
+<span class="comment">// Callback</span>
+hexo.extend.renderer.register(<span class="string">'styl'</span>, <span class="string">'css'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data, options, callback</span>)</span>{
+  stylus(data.text).set(<span class="string">'filename'</span>, data.path).render(callback);
+});
+
+<span class="comment">// Promise</span>
+hexo.extend.renderer.register(<span class="string">'styl'</span>, <span class="string">'css'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data, options</span>)</span>{
+  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>{
+    resolve(<span class="string">'test'</span>);
+  });
+});
+</code></pre>
+<h3 id="Modo-Sincrono"><a href="#Modo-Sincrono" class="headerlink" title="Modo Síncrono"></a>Modo Síncrono</h3><pre><code class="js"><span class="keyword">var</span> ejs = <span class="built_in">require</span>(<span class="string">'ejs'</span>);
+
+hexo.extend.renderer.register(<span class="string">'ejs'</span>, <span class="string">'html'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data, options</span>)</span>{
+  options.filename = data.path;
+  <span class="keyword">return</span> ejs.render(data.text, options);
+}, <span class="literal">true</span>);
+</code></pre>

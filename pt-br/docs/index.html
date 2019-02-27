@@ -1,0 +1,34 @@
+<h2 id="title-Documentacao"><a href="#title-Documentacao" class="headerlink" title="title: Documentação"></a>title: Documentação</h2><p>Bem-vindo à documentação do Hexo. Se você encontrar algum problema ao usar o Hexo, dê uma olhada no  <a href="troubleshooting.html">guia de solução de problemas</a>, abra uma issue no <a href="https://github.com/hexojs/hexo/issues">GitHub</a> ou inicie um tópico no <a href="https://groups.google.com/group/hexo">Google Group</a>.</p>
+<h2 id="O-que-e-o-Hexo"><a href="#O-que-e-o-Hexo" class="headerlink" title="O que é o Hexo?"></a>O que é o Hexo?</h2><p>O Hexo é uma ferramenta simples, rápida e poderosa para criação blog. Você escreve postagens em <a href="http://daringfireball.net/projects/markdown/">Markdown</a> (ou outras linguagens) e o Hexo gera arquivos estáticos com um lindo tema em segundos.</p>
+<h2 id="Instalacao"><a href="#Instalacao" class="headerlink" title="Instalação"></a>Instalação</h2><p>Demora apenas alguns minutos para configurar o Hexo. Se você encontrar um problema e não conseguir encontrar a solução aqui, por favor <a href="https://github.com/hexojs/hexo/issues">abra uma issue no GitHub</a> e vamos tentar resolvê-lo.</p>
+<p>{% youtube ARted4RniaU %}</p>
+<h3 id="Requerimentos"><a href="#Requerimentos" class="headerlink" title="Requerimentos"></a>Requerimentos</h3><p>Instalar o Hexo é bastante fácil. No entanto, você precisa ter algumas outras coisas instaladas primeiro:</p>
+<ul>
+<li><a href="http://nodejs.org/">Node.js</a></li>
+<li><a href="http://git-scm.com/">Git</a></li>
+</ul>
+<p>Se o seu computador já possui estes, parabéns! Basta instalar o Hexo com o npm:</p>
+<pre><code class="bash">$ npm install -g hexo-cli
+</code></pre>
+<p>Caso contrário, siga as instruções a seguir para instalar todos os requisitos.</p>
+<p>{% note warn Para usuários Mac %}<br>Você pode encontrar alguns problemas ao compilar. Instale o Xcode da App Store primeiro. Depois que o Xcode estiver instalado, abra o Xcode e vá para <strong>Preferences -&gt; Download -&gt; Command Line Tools -&gt; Install</strong> para instalar as ferramentas de linhas de comandos.<br>{% endnote %}</p>
+<h3 id="Instalando-o-Git"><a href="#Instalando-o-Git" class="headerlink" title="Instalando o Git"></a>Instalando o Git</h3><ul>
+<li>Windows: Download e instalação do <a href="https://git-scm.com/download/win">Git</a>.</li>
+<li>Mac: Intalação com o <a href="http://mxcl.github.com/homebrew/">Homebrew</a>, <a href="http://www.macports.org/">MacPorts</a> ou <a href="http://sourceforge.net/projects/git-osx-installer/">installer</a>.</li>
+<li>Linux (Ubuntu, Debian): <code>sudo apt-get install git-core</code></li>
+<li>Linux (Fedora, Red Hat, CentOS): <code>sudo yum install git-core</code></li>
+</ul>
+<h3 id="Instalando-o-Node-js"><a href="#Instalando-o-Node-js" class="headerlink" title="Instalando o Node.js"></a>Instalando o Node.js</h3><p>A melhor maneira de instalar o Node.js é com o <a href="https://github.com/creationix/nvm">Node Version Manager</a>.<br>Felizmente, os criadores do nvm fornecem um script simples que instala automaticamente o nvm:</p>
+<p>cURL:</p>
+<pre><code class="bash">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+</code></pre>
+<p>Wget:</p>
+<pre><code class="bash">$ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+</code></pre>
+<p>Uma vez que o nvm esteja instalado, reinicie o terminal e execute o seguinte comando para instalar o Node.js:</p>
+<pre><code class="bash">$ nvm install stable
+</code></pre>
+<p>Alternativamente, é possível baixar e executar <a href="http://nodejs.org/">o instalador do Node.js</a>.</p>
+<h3 id="Instalando-Hexo"><a href="#Instalando-Hexo" class="headerlink" title="Instalando Hexo"></a>Instalando Hexo</h3><p>Uma vez que todos os requisitos estão instalados, você pode instalar o Hexo com npm:</p>
+<pre><code class="bash">$ npm install -g hexo-cli
+</code></pre>

@@ -1,0 +1,67 @@
+<h2 id="title-Renderer"><a href="#title-Renderer" class="headerlink" title="title: Renderer"></a>title: Renderer</h2><p>Renderer는 내용들을 그릴(render) 때 사용합니다.</p>
+<h2 id="개요"><a href="#개요" class="headerlink" title="개요"></a>개요</h2><pre><code class="js">hexo.extend.renderer.register(name, output, <span class="function"><span class="keyword">function</span>(<span class="params">data, options</span>)</span>{
+  <span class="comment">// ...</span>
+}, sync);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>인자</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>입력 파일의 확장자 (소문자, ‘.’ 사용 불가)</td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td>출력 파일의 확장자 (소문자, ‘.’ 사용 불가)</td>
+</tr>
+<tr>
+<td><code>sync</code></td>
+<td>동기(Sync) 모드</td>
+</tr>
+</tbody>
+</table>
+<p>두 개의 인자가 render 함수로 전달됩니다:</p>
+<table>
+<thead>
+<tr>
+<th>인자</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>두 개의 속성을 포함합니다: 파일 경로인 <code>path</code>와 파일 컨텐츠인 <code>text</code>. <code>path</code>는 없어도 됩니다.</td>
+</tr>
+<tr>
+<td><code>option</code></td>
+<td>옵션</td>
+</tr>
+</tbody>
+</table>
+<h2 id="예시"><a href="#예시" class="headerlink" title="예시"></a>예시</h2><h3 id="비동기-Async-모드"><a href="#비동기-Async-모드" class="headerlink" title="비동기(Async) 모드"></a>비동기(Async) 모드</h3><pre><code class="js"><span class="keyword">var</span> stylus = <span class="built_in">require</span>(<span class="string">'stylus'</span>);
+
+<span class="comment">// Callback</span>
+hexo.extend.renderer.register(<span class="string">'styl'</span>, <span class="string">'css'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data, options, callback</span>)</span>{
+  stylus(data.text).set(<span class="string">'filename'</span>, data.path).render(callback);
+});
+
+<span class="comment">// Promise</span>
+hexo.extend.renderer.register(<span class="string">'styl'</span>, <span class="string">'css'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data, options</span>)</span>{
+  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>{
+    resolve(<span class="string">'test'</span>);
+  });
+});
+</code></pre>
+<h3 id="동기-Sync-Mode"><a href="#동기-Sync-Mode" class="headerlink" title="동기(Sync) Mode"></a>동기(Sync) Mode</h3><pre><code class="js"><span class="keyword">var</span> ejs = <span class="built_in">require</span>(<span class="string">'ejs'</span>);
+
+hexo.extend.renderer.register(<span class="string">'ejs'</span>, <span class="string">'html'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data, options</span>)</span>{
+  options.filename = data.path;
+  <span class="keyword">return</span> ejs.render(data.text, options);
+}, <span class="literal">true</span>);
+</code></pre>

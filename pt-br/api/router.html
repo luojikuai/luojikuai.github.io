@@ -1,0 +1,42 @@
+<h2 id="title-Router"><a href="#title-Router" class="headerlink" title="title: Router"></a>title: Router</h2><p>O <code>router</code> salva todos os caminhos usados no site.</p>
+<h2 id="Obter-um-Caminho"><a href="#Obter-um-Caminho" class="headerlink" title="Obter um Caminho"></a>Obter um Caminho</h2><p>O método <code>get</code> retorna uma <a href="http://nodejs.org/api/stream.html">Stream</a>. Por exemplo, para salvar os dados do caminho para um destino especificado:</p>
+<pre><code class="js"><span class="keyword">var</span> data = hexo.route.get(<span class="string">'index.html'</span>);
+<span class="keyword">var</span> dest = fs.createWriteStream(<span class="string">'somewhere'</span>);
+
+data.pipe(dest);
+</code></pre>
+<h2 id="Definir-um-Caminho"><a href="#Definir-um-Caminho" class="headerlink" title="Definir um Caminho"></a>Definir um Caminho</h2><p>O método <code>set</code> recebe uma string, um <a href="http://nodejs.org/api/buffer.html">Buffer</a> ou uma função.</p>
+<pre><code class="js"><span class="comment">// String</span>
+hexo.route.set(<span class="string">'index.html'</span>, <span class="string">'index'</span>)
+
+<span class="comment">// Buffer</span>
+hexo.route.set(<span class="string">'index.html'</span>, <span class="keyword">new</span> Buffer(<span class="string">'index'</span>));
+
+<span class="comment">// Function (Promise)</span>
+hexo.route.set(<span class="string">'index.html'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>{
+    resolve(<span class="string">'index'</span>);
+  });
+});
+
+<span class="comment">// Function (Callback)</span>
+hexo.route.set(<span class="string">'index.html'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>{
+  callback(<span class="literal">null</span>, <span class="string">'index'</span>);
+});
+</code></pre>
+<p>Você também pode definir um booleano para indicar se um caminho foi modificado ou não. Isso pode acelerar a geração de arquivos, pois permite ignorar os arquivos não modificados.</p>
+<pre><code class="js">hexo.route.set(<span class="string">'index.html'</span>, {
+    data: <span class="string">'index'</span>,
+    modified: <span class="literal">false</span>
+});
+
+<span class="comment">// hexo.route.isModified('index.html') =&gt; false</span>
+</code></pre>
+<h2 id="Remover-um-Caminho"><a href="#Remover-um-Caminho" class="headerlink" title="Remover um Caminho"></a>Remover um Caminho</h2><pre><code class="js">hexo.route.remove(<span class="string">'index.html'</span>);
+</code></pre>
+<h2 id="Obter-a-Lista-de-Rotas"><a href="#Obter-a-Lista-de-Rotas" class="headerlink" title="Obter a Lista de Rotas"></a>Obter a Lista de Rotas</h2><pre><code class="js">hexo.route.list();
+</code></pre>
+<h2 id="Formatar-o-Caminho"><a href="#Formatar-o-Caminho" class="headerlink" title="Formatar o Caminho"></a>Formatar o Caminho</h2><p>O método <code>format</code> transforma uma string em um caminho válido.</p>
+<pre><code class="js">hexo.route.format(<span class="string">'archives/'</span>);
+<span class="comment">// archives/index.html</span>
+</code></pre>

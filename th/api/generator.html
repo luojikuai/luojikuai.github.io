@@ -1,0 +1,88 @@
+<h2 id="title-Generator"><a href="#title-Generator" class="headerlink" title="title: Generator"></a>title: Generator</h2><p>generator สร้าง route บนพื้นฐานของไฟล์ท่ีได้จัดการ</p>
+<h2 id="Synopsis"><a href="#Synopsis" class="headerlink" title="Synopsis"></a>Synopsis</h2><pre><code class="js">hexo.extend.generator.register(name, <span class="function"><span class="keyword">function</span>(<span class="params">locals</span>)</span>{
+  <span class="comment">// ...</span>
+});
+</code></pre>
+<p>argument <code>locals</code> จะส่งเข้า function โดยมี <a href="../docs/variables.html#Site-Variables">site variables</a> เข้าด้วยกัน ผู้ใช้สามารถใช้ argument นี้เพื่อได้ data ของเว็บไซต์ ด้งนั้นจะไม่ต้องเข้าถึง database โดยตรง</p>
+<h2 id="Update-Routes"><a href="#Update-Routes" class="headerlink" title="Update Routes"></a>Update Routes</h2><pre><code class="js">hexo.extend.generator.register(<span class="string">'test'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">locals</span>)</span>{
+  <span class="comment">// Object</span>
+  <span class="keyword">return</span> {
+    path: <span class="string">'foo'</span>,
+    data: <span class="string">'foo'</span>
+  };
+
+  <span class="comment">// Array</span>
+  <span class="keyword">return</span> [
+    {<span class="attr">path</span>: <span class="string">'foo'</span>, <span class="attr">data</span>: <span class="string">'foo'</span>},
+    {<span class="attr">path</span>: <span class="string">'bar'</span>, <span class="attr">data</span>: <span class="string">'bar'</span>}
+  ];
+});
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>Path not including the prefixing <code>/</code>.</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>Data</td>
+</tr>
+<tr>
+<td><code>layout</code></td>
+<td>Layout. Specify the layouts for rendering. The value can be a string or an array. If it’s ignored then the route will return <code>data</code> directly.</td>
+</tr>
+</tbody>
+</table>
+<p>เมื่ออัปเดท source file แฃ้ว hexo จะ execute generator ทั้งหมดและสร้างขึ้น route ใหม่ <strong>กรุณาอย่าเข้าถึง router โดยตรง</strong></p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Archive-Page"><a href="#Archive-Page" class="headerlink" title="Archive Page"></a>Archive Page</h3><p>สร้างเพจ archive ได้ท่ี <code>archives/index.html</code>  โพสต์จะเป็นแบบ  data ท่ีส่งเข้า template. data นี้คล้ายกับ variable <code>page</code> ของ template</p>
+<p>ต่อไปจะตั้งค่า attribute ของ <code>layout</code> เพื่อ render theme template เฉพาะ ในตัวอย่างต่อไปจะตั้งค่า layout อย่างนี้: ถ้า layout  <code>archive</code> ไม่มี จะใช้ layout <code>index</code> แทน</p>
+<pre><code class="js">hexo.extend.generator.register(<span class="string">'archive'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">locals</span>)</span>{
+  <span class="keyword">return</span> {
+    path: <span class="string">'archives/index.html'</span>,
+    data: locals,
+    layout: [<span class="string">'archive'</span>, <span class="string">'index'</span>]
+  }
+});
+</code></pre>
+<h3 id="Archive-Page-with-Pagination"><a href="#Archive-Page-with-Pagination" class="headerlink" title="Archive Page with Pagination"></a>Archive Page with Pagination</h3><p>ผู้ใช้สามารถใช้เครื่องมือทางการ <a href="https://github.com/hexojs/hexo-pagination">hexo-pagination</a> อย่างสะดวกไปสร้างเพจ archive ท่ีมีหมายเลขหน้า</p>
+<pre><code class="js"><span class="keyword">var</span> pagination = <span class="built_in">require</span>(<span class="string">'hexo-pagination'</span>);
+
+hexo.extend.generator.register(<span class="string">'archive'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">locals</span>)</span>{
+  <span class="comment">// hexo-pagination makes an index.html for the /archives route</span>
+  <span class="keyword">return</span> pagination(<span class="string">'archives'</span>, locals.posts, {
+    perPage: <span class="number">10</span>,
+    layout: [<span class="string">'archive'</span>, <span class="string">'index'</span>],
+    data: {}
+  });
+});
+</code></pre>
+<h3 id="Generate-All-Posts"><a href="#Generate-All-Posts" class="headerlink" title="Generate All Posts"></a>Generate All Posts</h3><p>โพสต์ทั้งหมดจะมีอยู่ใน <code>locals.posts</code> ด้วยแล้วจะสร้าง route ให้โพสต์ทั้งหมด</p>
+<pre><code class="js">hexo.extend.generator.register(<span class="string">'post'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">locals</span>)</span>{
+  <span class="keyword">return</span> locals.posts.map(<span class="function"><span class="keyword">function</span>(<span class="params">post</span>)</span>{
+    <span class="keyword">return</span> {
+      path: post.path,
+      data: post,
+      layout: <span class="string">'post'</span>
+    };
+  });
+});
+</code></pre>
+<h3 id="Copy-Files"><a href="#Copy-Files" class="headerlink" title="Copy Files"></a>Copy Files</h3><p>คราวนี้  <code>data</code> จะเป็น function และ route <code>fs.ReadStream</code> ของ <code>data</code> จะสร้างขึ้นมาในเวลาที่ต้องการ</p>
+<pre><code class="js"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'hexo-fs'</span>);
+
+hexo.extend.generator.register(<span class="string">'asset'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">locals</span>)</span>{
+  <span class="keyword">return</span> {
+    path: <span class="string">'file.txt'</span>,
+    data: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+      <span class="keyword">return</span> fs.createReadStream(<span class="string">'path/to/file.txt'</span>)
+    }
+  };
+});
+</code></pre>

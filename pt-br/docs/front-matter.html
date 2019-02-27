@@ -1,0 +1,81 @@
+<h2 id="title-Front-matter"><a href="#title-Front-matter" class="headerlink" title="title: Front-matter"></a>title: Front-matter</h2><p>{% youtube pfD6FCZdW4Q %}</p>
+<p>Front-matter é um bloco de YAML ou JSON no início do arquivo que é usado para definir configurações para o conteúdo que será escrito (como páginas ou postagens). O Front-matter é terminado por três traços quando escrito em YAML ou três ponto e vírgula quando escrito em JSON.</p>
+<p><strong>YAML</strong></p>
+<pre><code class="yaml"><span class="attr">title:</span> <span class="string">Hello</span> <span class="string">World</span>
+<span class="attr">date:</span> <span class="number">2013</span><span class="string">/7/13</span> <span class="number">20</span><span class="string">:46:25</span>
+<span class="meta">---</span>
+</code></pre>
+<p><strong>JSON</strong></p>
+<pre><code class="json">&quot;title&quot;: &quot;Hello World&quot;,
+&quot;date&quot;: &quot;2013/7/13 20:46:25&quot;
+;;;
+</code></pre>
+<h3 id="Configuracoes-e-Seus-Valores-Padrao"><a href="#Configuracoes-e-Seus-Valores-Padrao" class="headerlink" title="Configurações e Seus Valores Padrão"></a>Configurações e Seus Valores Padrão</h3><table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>Descrição</th>
+<th>Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>layout</code></td>
+<td>Layout</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>Título</td>
+<td></td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>Data de publicação</td>
+<td>Data de criação do arquivo</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td>Data de atualização</td>
+<td>Data de atualização do arquivo</td>
+</tr>
+<tr>
+<td><code>comments</code></td>
+<td>Habilita o recurso de comentário para a postagem</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>Tags (Não disponível para páginas)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>Categorias (Não disponível para páginas)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>permalink</code></td>
+<td>Substitui o permalink padrão da postagem</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Categorias-amp-Tags"><a href="#Categorias-amp-Tags" class="headerlink" title="Categorias &amp; Tags"></a>Categorias &amp; Tags</h4><p>Somente postagens aceitam o uso de categorias e tags. As categorias aplicam-se à postagens em ordem, resultando em uma hierarquia de classificações e subclassificações. As tags são todas definidas no mesmo nível hierárquico, de modo que a ordem em que aparecem não é importante.</p>
+<p><strong>Exemplo</strong></p>
+<pre><code class="yaml"><span class="attr">categories:</span>
+<span class="bullet">-</span> <span class="string">Sports</span>
+<span class="bullet">-</span> <span class="string">Baseball</span>
+<span class="attr">tags:</span>
+<span class="bullet">-</span> <span class="string">Injury</span>
+<span class="bullet">-</span> <span class="string">Fight</span>
+<span class="bullet">-</span> <span class="string">Shocking</span>
+</code></pre>
+<p>Se você quiser aplicar várias hierarquias de categorias, use uma lista de nomes em vez de um único nome. Se o Hexo encontar qualquer categoria definida dessa forma em uma postagem, ele tratará cada categoria para essa postagem com sua própria hierarquia independente.</p>
+<p><strong>Exemplo</strong></p>
+<pre><code class="yaml"><span class="attr">categories:</span>
+<span class="bullet">-</span> <span class="string">[Sports,</span> <span class="string">Baseball]</span>
+<span class="bullet">-</span> <span class="string">[MLB,</span> <span class="string">American</span> <span class="string">League,</span> <span class="string">Boston</span> <span class="string">Red</span> <span class="string">Sox]</span>
+<span class="bullet">-</span> <span class="string">[MLB,</span> <span class="string">American</span> <span class="string">League,</span> <span class="string">New</span> <span class="string">York</span> <span class="string">Yankees]</span>
+<span class="bullet">-</span> <span class="string">Rivalries</span>
+</code></pre>

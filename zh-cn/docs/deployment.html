@@ -1,0 +1,305 @@
+<h2 id="title-部署"><a href="#title-部署" class="headerlink" title="title: 部署"></a>title: 部署</h2><div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;"><iframe src="//player.bilibili.com/player.html?aid=39529741&cid=69445520&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"> </iframe></div>
+
+<p>Hexo 提供了快速方便的一键部署功能，让您只需一条命令就能将网站部署到服务器上。</p>
+<pre><code class="bash">$ hexo deploy
+</code></pre>
+<p>在开始之前，您必须先在 <code>_config.yml</code> 中修改参数，一个正确的部署配置中至少要有 <code>type</code> 参数，例如：</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">git</span>
+</code></pre>
+<p>您可同时使用多个 deployer，Hexo 会依照顺序执行每个 deployer。</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">- type:</span> <span class="string">git</span>
+<span class="attr">  repo:</span>
+<span class="attr">- type:</span> <span class="string">heroku</span>
+<span class="attr">  repo:</span>
+</code></pre>
+<p>{% note warn 缩进 %}<br>YAML依靠缩进来确定元素间的从属关系。因此，请确保每个deployer的缩进长度相同，并且使用空格缩进。<br>{% endnote %}</p>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>安装 <a href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a>。</p>
+<pre><code class="bash">$ npm install hexo-deployer-git --save
+</code></pre>
+<p>修改配置。</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">git</span>
+<span class="attr">  repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span> <span class="comment">#https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io</span>
+<span class="attr">  branch:</span> <span class="string">[branch]</span> <span class="comment">#published</span>
+<span class="attr">  message:</span> <span class="string">[message]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>repo</code></td>
+<td>库（Repository）地址</td>
+</tr>
+<tr>
+<td><code>branch</code></td>
+<td>分支名称。如果您使用的是 GitHub 或 GitCafe 的话，程序会尝试自动检测。</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>自定义提交信息 (默认为 <code>Site updated: {% raw %}{{ now(&#39;YYYY-MM-DD HH:mm:ss&#39;) }}{% endraw %}</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>生成站点文件并推送至远程库。执行<code>hexo clean &amp;&amp; hexo deploy</code>命令。前者清除站点文件，后者重新生成站点文件并将之推送到指定的库分支。（如果您的Hexo是局部安装，则需要执行<code>./node_modules/.bin/hexo clean &amp;&amp; ./node_modules/.bin/hexo deploy</code>。）</p>
+<p>登入 Github/BitBucket/Gitlab，请在库设置（Repository Settings）中将默认分支设置为<code>_config.yml</code>配置中的分支名称。稍等片刻，您的站点就会显示在您的Github Pages中。</p>
+<h3 id="这一切是如何发生的？"><a href="#这一切是如何发生的？" class="headerlink" title="这一切是如何发生的？"></a>这一切是如何发生的？</h3><p>当初次新建一个库的时候，库将自动包含一个<strong>master</strong>分支。请在这个分支下进行写作和各种配置来完善您的网页。当执行<code>hexo deploy</code>时，Hexo会创建或更新另外一个用于部署的分支，这个分支就是<code>_config.yml</code>配置文件中指定的分支。Hexo会将生成的站点文件推送至该分支下，并且<strong>完全覆盖</strong>该分支下的已有内容。因此，部署分支应当不同于写作分支。（一个推荐的方式是把master作为写作分支，另外使用public分支作为部署分支。）值得注意的是，<code>hexo deploy</code>并不会对本地或远程的写作分支进行任何操作，因此依旧需要手动推送写作分支的所有改动以实现版本控制。此外，如果您的Github Pages需要使用CNAME文件<strong>自定义域名</strong>，请将CNAME文件置于写作分支的<code>source_dir</code>目录下，只有这样<code>hexo deploy</code>才能将CNAME文件一并推送至部署分支。</p>
+<h2 id="Heroku"><a href="#Heroku" class="headerlink" title="Heroku"></a>Heroku</h2><p>安装 <a href="https://github.com/hexojs/hexo-deployer-heroku">hexo-deployer-heroku</a>。</p>
+<pre><code class="bash">$ npm install hexo-deployer-heroku --save
+</code></pre>
+<p>修改配置。</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">heroku</span>
+<span class="attr">  repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span>
+<span class="attr">  message:</span> <span class="string">[message]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>repo</code></td>
+<td>Heroku 库（Repository）地址</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>自定提交信息 (默认为 <code>Site updated: {% raw %}{{ now(&#39;YYYY-MM-DD HH:mm:ss&#39;) }}{% endraw %}</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Netlify"><a href="#Netlify" class="headerlink" title="Netlify"></a>Netlify</h2><p><a href="https://www.netlify.com/">Netlify</a> 是一个提供网络托管的综合平台。它集持续集成（CI）CDN 自定义域名 HTTPS 持续部署（CD）等诸多功能于一身。您可以通过以下两种方式将Hexo站点部署到Netlify。</p>
+<p>首先，也是最通用的方式，就是使用Netlify提供的网页端用户界面。前往<a href="https://app.netlify.com/start">新建一个网站页面</a>，选择需要关联的 Github/BitBucket/Gitlab 库，然后遵循网站提示。</p>
+<p>另一种方式是使用Netlify提供的命令行客户端工具 <a href="https://www.netlify.com/docs/cli/">Node based CLI</a> 管理和部署您的站点。</p>
+<p>此外，您还可以在项目的README中增加一个 <a href="https://www.netlify.com/docs/deploy-button/">部署至Netlify按钮</a>，这样其他用户在fork或clone了您的项目之后可以方便快捷地一键部署。</p>
+<h2 id="Rsync"><a href="#Rsync" class="headerlink" title="Rsync"></a>Rsync</h2><p>安装 <a href="https://github.com/hexojs/hexo-deployer-rsync">hexo-deployer-rsync</a>。</p>
+<pre><code class="bash">$ npm install hexo-deployer-rsync --save
+</code></pre>
+<p>修改配置。</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">rsync</span>
+<span class="attr">  host:</span> <span class="string">&lt;host&gt;</span>
+<span class="attr">  user:</span> <span class="string">&lt;user&gt;</span>
+<span class="attr">  root:</span> <span class="string">&lt;root&gt;</span>
+<span class="attr">  port:</span> <span class="string">[port]</span>
+<span class="attr">  delete:</span> <span class="string">[true|false]</span>
+<span class="attr">  verbose:</span> <span class="string">[true|false]</span>
+<span class="attr">  ignore_errors:</span> <span class="string">[true|false]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>远程主机的地址</td>
+<td></td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>使用者名称</td>
+<td></td>
+</tr>
+<tr>
+<td><code>root</code></td>
+<td>远程主机的根目录</td>
+<td></td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>端口</td>
+<td>22</td>
+</tr>
+<tr>
+<td><code>delete</code></td>
+<td>删除远程主机上的旧文件</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>verbose</code></td>
+<td>显示调试信息</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>ignore_errors</code></td>
+<td>忽略错误</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p>{% note info rsync部署模块的工作方式 %}<br>需要注意的是，要求您提供的实际上是一个能通过SSH登陆远程主机的Linux用户。Hexo会自动处理关于rsync使用的一切操作。因此，您需要在远程主机上为您的Hexo站点建立一个用户，并允许其通过SSH登陆。不过，这里的<code>port</code>，的确是指rsync监听的端口，请确保防火墙打开了该端口。<br>{% endnote %}</p>
+<h2 id="OpenShift"><a href="#OpenShift" class="headerlink" title="OpenShift"></a>OpenShift</h2><p>安装 <a href="https://github.com/hexojs/hexo-deployer-openshift">hexo-deployer-openshift</a>。</p>
+<pre><code class="bash">$ npm install hexo-deployer-openshift --save
+</code></pre>
+<p>修改配置。</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">openshift</span>
+<span class="attr">  repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span>
+<span class="attr">  message:</span> <span class="string">[message]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>repo</code></td>
+<td>OpenShift 库（Repository）地址</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>自定提交信息 (默认为 <code>Site updated: {% raw %}{{ now(&#39;YYYY-MM-DD HH:mm:ss&#39;) }}{% endraw %}</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="FTPSync"><a href="#FTPSync" class="headerlink" title="FTPSync"></a>FTPSync</h2><p>安装 <a href="https://github.com/hexojs/hexo-deployer-ftpsync">hexo-deployer-ftpsync</a>。</p>
+<pre><code class="bash">$ npm install hexo-deployer-ftpsync --save
+</code></pre>
+<p>修改配置。</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">ftpsync</span>
+<span class="attr">  host:</span> <span class="string">&lt;host&gt;</span>
+<span class="attr">  user:</span> <span class="string">&lt;user&gt;</span>
+<span class="attr">  pass:</span> <span class="string">&lt;password&gt;</span>
+<span class="attr">  remote:</span> <span class="string">[remote]</span>
+<span class="attr">  port:</span> <span class="string">[port]</span>
+<span class="attr">  ignore:</span> <span class="string">[ignore]</span>
+<span class="attr">  connections:</span> <span class="string">[connections]</span>
+<span class="attr">  verbose:</span> <span class="string">[true|false]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>远程主机的地址</td>
+<td></td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>使用者名称</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pass</code></td>
+<td>密码</td>
+<td></td>
+</tr>
+<tr>
+<td><code>remote</code></td>
+<td>远程主机的根目录</td>
+<td><code>/</code></td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>端口</td>
+<td>21</td>
+</tr>
+<tr>
+<td><code>ignore</code></td>
+<td>忽略的文件或目录</td>
+<td></td>
+</tr>
+<tr>
+<td><code>connections</code></td>
+<td>使用的连接数</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>verbose</code></td>
+<td>显示调试信息</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p>{% note warn FTP部署可能出现的问题 %}<br>您可能需要预先通过其他方式将所有文件上传到远程主机中。否则初次使用ftpsync插件就可能出现报错。另外，由于FTP协议的特征，它每传送一个文件就需要一次握手，相对速度较慢。<br>{% endnote %}</p>
+<h2 id="SFTP"><a href="#SFTP" class="headerlink" title="SFTP"></a>SFTP</h2><p>安装 <a href="https://github.com/lucascaro/hexo-deployer-sftp">hexo-deployer-sftp</a>。</p>
+<pre><code class="bash">$ npm install hexo-deployer-sftp --save
+</code></pre>
+<p>修改配置。</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">sftp</span>
+<span class="attr">  host:</span> <span class="string">&lt;host&gt;</span>
+<span class="attr">  user:</span> <span class="string">&lt;user&gt;</span>
+<span class="attr">  pass:</span> <span class="string">&lt;password&gt;</span>
+<span class="attr">  remotePath:</span> <span class="string">[remote</span> <span class="string">path]</span>
+<span class="attr">  port:</span> <span class="string">[port]</span>
+<span class="attr">  privateKey:</span> <span class="string">[path/to/privateKey]</span>
+<span class="attr">  passphrase:</span> <span class="string">[passphrase]</span>
+<span class="attr">  agent:</span> <span class="string">[path/to/agent/socket]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>远程主机的地址</td>
+<td></td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>使用者名称</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pass</code></td>
+<td>密码</td>
+<td></td>
+</tr>
+<tr>
+<td><code>remotePath</code></td>
+<td>远程主机的根目录</td>
+<td><code>/</code></td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>端口</td>
+<td>22</td>
+</tr>
+<tr>
+<td><code>privateKey</code></td>
+<td>ssh私钥的目录地址</td>
+<td></td>
+</tr>
+<tr>
+<td><code>passphrase</code></td>
+<td>（可省略）ssh私钥的密码短语</td>
+<td></td>
+</tr>
+<tr>
+<td><code>agent</code></td>
+<td>ssh套接字的目录地址</td>
+<td><code>$SSH_AUTH_SOCK</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h2><p>Hexo 生成的所有文件都放在 <code>public</code> 文件夹中，您可以将它们复制到您喜欢的地方。</p>

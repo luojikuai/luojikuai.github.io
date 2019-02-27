@@ -1,0 +1,227 @@
+<h2 id="title-Deployment"><a href="#title-Deployment" class="headerlink" title="title: Deployment"></a>title: Deployment</h2><p>Hexo는 빠르고 쉬운 deployment전략을 제공합니다. 웹 사이트를 서버에 deploy하기 위해 하나의 명령어만 수행하면 됩니다.</p>
+<pre><code class="bash">$ hexo deploy
+</code></pre>
+<p>처음 개발을 진행하기 전에, <code>_config.yml</code> 파일의 설정을 수정할 필요가 있습니다. Deployment를 원하는 곳을 아래 예시처럼 <code>type</code> 필드에 넣습니다.</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">git</span>
+</code></pre>
+<p>여러 곳에 동시에 deploy할 수도 있습니다. Hexo는 순차적으로 deploy를 수행합니다.</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">- type:</span> <span class="string">git</span>
+<span class="attr">  repo:</span>
+<span class="attr">- type:</span> <span class="string">heroku</span>
+<span class="attr">  repo:</span>
+</code></pre>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p><a href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a>을 설치합니다.</p>
+<pre><code class="bash">$ npm install hexo-deployer-git --save
+</code></pre>
+<p>설정을 수정합니다.</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">git</span>
+<span class="attr">  repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span>
+<span class="attr">  branch:</span> <span class="string">[branch]</span>
+<span class="attr">  message:</span> <span class="string">[message]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>옵션</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>repo</code></td>
+<td>GitHub 저장소 URL</td>
+</tr>
+<tr>
+<td><code>branch</code></td>
+<td>Branch명. 당신이 GitHub 또는 GitCafe를 사용한다면 deployer는 자동으로 branch를 찾아냅니다.</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>Commit message를 수정합니다. (기본값 - <code>Site updated: {% raw %}{{ now(&#39;YYYY-MM-DD HH:mm:ss&#39;) }}{% endraw %}</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Heroku"><a href="#Heroku" class="headerlink" title="Heroku"></a>Heroku</h2><p><a href="https://github.com/hexojs/hexo-deployer-heroku">hexo-deployer-heroku</a>을 설치합니다.</p>
+<pre><code class="bash">$ npm install hexo-deployer-heroku --save
+</code></pre>
+<p>설정을 수정합니다.</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">heroku</span>
+<span class="attr">  repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span>
+<span class="attr">  message:</span> <span class="string">[message]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>옵션</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>repo</code>, <code>repository</code></td>
+<td>Heroku 저장소 URL</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>Commit message를 수정합니다. (기본값 - <code>Site updated: {% raw %}{{ now(&#39;YYYY-MM-DD HH:mm:ss&#39;) }}{% endraw %}</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Rsync"><a href="#Rsync" class="headerlink" title="Rsync"></a>Rsync</h2><p><a href="https://github.com/hexojs/hexo-deployer-rsync">hexo-deployer-rsync</a>를 설치합니다.</p>
+<pre><code class="bash">$ npm install hexo-deployer-rsync --save
+</code></pre>
+<p>설정을 수정합니다.</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">rsync</span>
+<span class="attr">  host:</span> <span class="string">&lt;host&gt;</span>
+<span class="attr">  user:</span> <span class="string">&lt;user&gt;</span>
+<span class="attr">  root:</span> <span class="string">&lt;root&gt;</span>
+<span class="attr">  port:</span> <span class="string">[port]</span>
+<span class="attr">  delete:</span> <span class="string">[true|false]</span>
+<span class="attr">  verbose:</span> <span class="string">[true|false]</span>
+<span class="attr">  ignore_errors:</span> <span class="string">[true|false]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>옵션</th>
+<th>설명</th>
+<th>기본값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>원격 호스트의 주소</td>
+<td></td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>사용자명</td>
+<td></td>
+</tr>
+<tr>
+<td><code>root</code></td>
+<td>원격 호스트의 루트 디렉토리</td>
+<td></td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>포트</td>
+<td>22</td>
+</tr>
+<tr>
+<td><code>delete</code></td>
+<td>원격 호스트의 오래된 파일을 삭제합니다.</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>verbose</code></td>
+<td>Verbose 메시지를 표시합니다.</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>ignore_errors</code></td>
+<td>에러를 무시합니다.</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<h2 id="OpenShift"><a href="#OpenShift" class="headerlink" title="OpenShift"></a>OpenShift</h2><p><a href="https://github.com/hexojs/hexo-deployer-openshift">hexo-deployer-openshift</a>를 설치합니다.</p>
+<pre><code class="bash">$ npm install hexo-deployer-openshift --save
+</code></pre>
+<p>설정을 수정합니다.</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">openshift</span>
+<span class="attr">  repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span>
+<span class="attr">  message:</span> <span class="string">[message]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>옵션</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>repo</code></td>
+<td>OpenShift 저장소 URL</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>Commit message를 수정합니다. (기본값 - <code>Site updated: {% raw %}{{ now(&#39;YYYY-MM-DD HH:mm:ss&#39;) }}{% endraw %}</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="FTPSync"><a href="#FTPSync" class="headerlink" title="FTPSync"></a>FTPSync</h2><p><a href="https://github.com/hexojs/hexo-deployer-ftpsync">hexo-deployer-ftpsync</a>를 설치합니다.</p>
+<pre><code class="bash">$ npm install hexo-deployer-ftpsync --save
+</code></pre>
+<p>설정을 수정합니다.</p>
+<pre><code class="yaml"><span class="attr">deploy:</span>
+<span class="attr">  type:</span> <span class="string">ftpsync</span>
+<span class="attr">  host:</span> <span class="string">&lt;host&gt;</span>
+<span class="attr">  user:</span> <span class="string">&lt;user&gt;</span>
+<span class="attr">  pass:</span> <span class="string">&lt;password&gt;</span>
+<span class="attr">  remote:</span> <span class="string">[remote]</span>
+<span class="attr">  port:</span> <span class="string">[port]</span>
+<span class="attr">  ignore:</span> <span class="string">[ignore]</span>
+<span class="attr">  connections:</span> <span class="string">[connections]</span>
+<span class="attr">  verbose:</span> <span class="string">[true|false]</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>옵션</th>
+<th>설명</th>
+<th>기본값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>원격 호스트의 주소</td>
+<td></td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>사용자명</td>
+<td></td>
+</tr>
+<tr>
+<td><code>pass</code></td>
+<td>비밀번호</td>
+<td></td>
+</tr>
+<tr>
+<td><code>remote</code></td>
+<td>원격 호스트의 루트 디렉토리</td>
+<td><code>/</code></td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>포트</td>
+<td>21</td>
+</tr>
+<tr>
+<td><code>ignore</code></td>
+<td>호스트 파일들과 원격 파일들을 무시합니다.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>connections</code></td>
+<td>연결 번호</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>verbose</code></td>
+<td>Verbose 메시지를 표시합니다.</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<h2 id="다른-메소드들"><a href="#다른-메소드들" class="headerlink" title="다른 메소드들"></a>다른 메소드들</h2><p>생성되는 모든 파일들은 <code>public</code> 폴더에 저장됩니다. 이 파일들을 당신이 원하는 곳 아무데나 복사하여 사용할 수 있습니다.</p>

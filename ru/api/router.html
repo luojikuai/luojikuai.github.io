@@ -1,0 +1,42 @@
+<h2 id="title-Маршрутизатор"><a href="#title-Маршрутизатор" class="headerlink" title="title: Маршрутизатор"></a>title: Маршрутизатор</h2><p>Маршрутизатор сохраняет все ссылки используемые на сайте.</p>
+<h2 id="Получение-пути"><a href="#Получение-пути" class="headerlink" title="Получение пути"></a>Получение пути</h2><p>Метод <code>get</code> возвращает поток <a href="http://nodejs.org/api/stream.html">Stream</a>. Пример, для сохранения данных о ссылках в указанное место:</p>
+<pre><code class="js"><span class="keyword">var</span> data = hexo.route.get(<span class="string">'index.html'</span>);
+<span class="keyword">var</span> dest = fs.createWriteStream(<span class="string">'somewhere'</span>);
+
+data.pipe(dest);
+</code></pre>
+<h2 id="Установка-пути"><a href="#Установка-пути" class="headerlink" title="Установка пути"></a>Установка пути</h2><p>Метод <code>set</code> принимает строку, <a href="http://nodejs.org/api/buffer.html">Buffer</a> или функцию.</p>
+<pre><code class="js"><span class="comment">// Строка</span>
+hexo.route.set(<span class="string">'index.html'</span>, <span class="string">'index'</span>)
+
+<span class="comment">// Buffer</span>
+hexo.route.set(<span class="string">'index.html'</span>, <span class="keyword">new</span> Buffer(<span class="string">'index'</span>));
+
+<span class="comment">// Функция (Запрос)</span>
+hexo.route.set(<span class="string">'index.html'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>{
+    resolve(<span class="string">'index'</span>);
+  });
+});
+
+<span class="comment">// Функция (Обратный вызов)</span>
+hexo.route.set(<span class="string">'index.html'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>{
+  callback(<span class="literal">null</span>, <span class="string">'index'</span>);
+});
+</code></pre>
+<p>Можно, также, установить логическое значение была ли изменён путь. Это позволяет увеличить скорость создания файлов, поскольку игнорируются неизменённые ссылки.</p>
+<pre><code class="js">hexo.route.set(<span class="string">'index.html'</span>, {
+    data: <span class="string">'index'</span>,
+    modified: <span class="literal">false</span>
+});
+
+<span class="comment">// hexo.route.isModified('index.html') =&gt; false</span>
+</code></pre>
+<h2 id="Удаление-ссылки"><a href="#Удаление-ссылки" class="headerlink" title="Удаление ссылки"></a>Удаление ссылки</h2><pre><code class="js">hexo.route.remove(<span class="string">'index.html'</span>);
+</code></pre>
+<h2 id="Получение-списка-ссылок"><a href="#Получение-списка-ссылок" class="headerlink" title="Получение списка ссылок"></a>Получение списка ссылок</h2><pre><code class="js">hexo.route.list();
+</code></pre>
+<h2 id="Формат-пути"><a href="#Формат-пути" class="headerlink" title="Формат пути"></a>Формат пути</h2><p>Метод <code>format</code> преобразует строку в правильную ссылку.</p>
+<pre><code class="js">hexo.route.format(<span class="string">'archives/'</span>);
+<span class="comment">// archives/index.html</span>
+</code></pre>

@@ -1,0 +1,35 @@
+<h2 id="title-Documentation"><a href="#title-Documentation" class="headerlink" title="title: Documentation"></a>title: Documentation</h2><p>ยินดีต้อนรับเข้าสู่ documentation ของ hexo ถ้าคุณพบเจอปัญหาใดๆเวลาใช้ hexo<br>ไปดูข้อมูลได้ท่ี  <a href="troubleshooting.html">troubleshooting guide</a> ไปเสนอ issue<br>ได้ที่ <a href="https://github.com/hexojs/hexo/issues">GitHub</a> หรือไปเปิด topic ได้ท่ี <a href="https://groups.google.com/group/hexo">Google Group</a></p>
+<h2 id="What-is-Hexo"><a href="#What-is-Hexo" class="headerlink" title="What is Hexo?"></a>What is Hexo?</h2><p>hexo เป็นกรอบบล็อกท่ีรวดเร็ว เรียบง่ายและมีประสิทธิภาพ<br>คุณเขียนโพสต์ได้ด้วยภาษา <a href="http://daringfireball
+.net/projects/markdown/">Markdown</a>(หรือภาษาอื่นๆ) และ hexo จะ generate<br>ไฟล์คงที่ท่ีประกอบด้วยธีมสวยงามภายในเวลาไม่กี่วินาที</p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>การติดตั้ง hexo ต้องการเวลาหลายนาทีเท่านั้น ถ้าคุณพบเจอปัญหาท่ีแก้ไขไม่ได้<br>กรุณาไปเสนอ issue ได้ท่ี <a href="https://github.com/hexojs/hexo/issues">submit a GitHub issue</a></p>
+<p>{% youtube ARted4RniaU %}</p>
+<h3 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h3><p>การติดตั้ง hexo เป็นเรื่องง่ายๆ แต่คุณต้องการติดตั้งบางสิ่งก่อน:</p>
+<ul>
+<li><a href="http://nodejs.org/">Node.js</a></li>
+<li><a href="http://git-scm.com/">Git</a></li>
+</ul>
+<p>ถ้าคุณติดตั้งสองสิ่งนี้อยู่แล้วในคอม ขอแสดงความยินดี คุณจะติดตั้ง hexo ด้วย npm ได้อย่างนี้:</p>
+<pre><code class="bash">$ npm install -g hexo-cli
+</code></pre>
+<p>ถ้าคุณยังไม่ได้ติดตั้งสองสิ่งนี้ กรุณาปฏิบัติตามวิธีการใช้เพื่อติดตั้งทุกสิ่งท่ีต้องการ<br>{% note warn For Mac users %}<br>คุณอาจจะพบปัญหาบ้างเมื่อ compiling กรุณาติดตั้ง Xcode จาก App Store ก่อน<br>เสร็จแล้วค่อยไปเปิด Xcode และ ไปถึง <strong>Preferences -&gt; Download -&gt; Command Line<br> Tools -&gt; Install</strong> เพื่อติดตั้งเครื่องมือคำสั่ง<br>{% endnote %}</p>
+<h3 id="Install-Git"><a href="#Install-Git" class="headerlink" title="Install Git"></a>Install Git</h3><ul>
+<li>Windows: ดาวน์โหลด &amp; ติดตั้ง <a href="https://git-scm.com/download/win">git</a>.</li>
+<li>Mac: ติดตั้งด้วย <a href="http://mxcl.github.com/homebrew/">Homebrew</a>, [MacPorts]<br>(<a href="http://www.macports.org/">http://www.macports.org/</a>) หรือ <a href="http://sourceforge
+.net/projects/git-osx-installer/">installer</a>.</li>
+<li>Linux (Ubuntu, Debian): <code>sudo apt-get install git-core</code></li>
+<li>Linux (Fedora, Red Hat, CentOS): <code>sudo yum install git-core</code></li>
+</ul>
+<h3 id="Install-Node-js"><a href="#Install-Node-js" class="headerlink" title="Install Node.js"></a>Install Node.js</h3><p>วิธีดีท่ีสุดสำหรับการติดตั้ง Node.js คือ <a href="https://github.com/creationix/nvm">Node Version Manager</a><br>ขอบคุณ ผู้ประดิษฐ์ nvm ท่ีได้แนะนำวิธีเรียบง่ายท่ีติดตั้ง nvm ได้โดยอัตโนมัติ</p>
+<p>cURL:</p>
+<pre><code class="bash">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+</code></pre>
+<p>Wget:</p>
+<pre><code class="bash">$ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+</code></pre>
+<p>เมื่อเสร็จการติดตั้ง nvm เปิด terminal ใหม่และรันคำสั่งต่อไปเพื่อติดตั้ง Node.js</p>
+<pre><code class="bash">$ nvm install stable
+</code></pre>
+<p>นอกจากนี้ยังดาวน์โหลดและรัน <a href="http://nodejs.org/">the installer</a> ได้</p>
+<h3 id="Install-Hexo"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</h3><p>เมื่อความต้องการทุกอย่างได้ติดตั้งเรียบร้อยแล้ว คุณสามารถติดตั้ง hexo ด้วย npm</p>
+<pre><code class="bash">$ npm install -g hexo-cli
+</code></pre>
